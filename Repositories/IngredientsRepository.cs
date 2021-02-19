@@ -6,7 +6,7 @@ namespace allSpice.Repositories
 {
   public class IngredientsRepository
   {
-    internal object GetById(int id)
+    internal Ingredient GetById(int id)
     {
       throw new NotImplementedException();
     }

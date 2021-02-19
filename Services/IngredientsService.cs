@@ -13,9 +13,9 @@ namespace allSpice.Services
     _repo = repo;
   }
 
-    internal object GetIngredientById(int id)
+    internal Ingredient GetIngredientById(int id)
     {
-      var data = _repo.GetById(id);
+      Ingredient data = _repo.GetById(id);
       if(data == null)
       {
         throw new SystemException("This id is invalid");
@@ -31,7 +31,7 @@ namespace allSpice.Services
     internal object EditIngredient(Ingredient updatedIngredient)
     {
       var data = GetIngredientById(updatedIngredient.Id);
-      updatedIngredient.Quantity = updatedIngredient.Quantity != null ? updatedIngredient.Quantity : data.Quanity;
+      updatedIngredient.Quantity = updatedIngredient.Quantity != null ? updatedIngredient.Quantity : data.Quantity;
       updatedIngredient.Title = updatedIngredient.Title != null ? updatedIngredient.Title : data.Title;
       updatedIngredient.Description = updatedIngredient.Description != null ? updatedIngredient.Description : data.Description;
 
