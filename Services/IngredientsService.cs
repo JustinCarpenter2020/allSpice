@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using allSpice.Models;
 
 namespace allSpice.Services
@@ -21,6 +22,11 @@ namespace allSpice.Services
     }
 
     internal void DeleteIngredient(int id)
+    {
+      throw new NotImplementedException();
+    }
+
+    internal IEnumerable<Recipe> GetIngredients(int id)
     {
       throw new NotImplementedException();
     }
