@@ -62,7 +62,7 @@ namespace allSpice.Controllers
             try
             {
                 _service.DeleteIngredient(id);
-                return Ok("Successfully removed")
+                return Ok("Successfully removed");
             }
             catch (System.Exception err)
             {

@@ -51,7 +51,7 @@ namespace allSpice.Controllers
             try
             {
                  IEnumerable<Recipe> data = _ingredientsService.GetIngredients(id);
-                return Ok(data)
+                return Ok(data);
             }
             catch (System.Exception err)
             {
