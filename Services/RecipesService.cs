@@ -1,33 +1,52 @@
 using System;
+using System.Collections.Generic;
 using allSpice.Models;
+using allSpice.Repositories;
 
 namespace allSpice.Services
 {
   public class RecipesService
   {
-    internal object GetAll()
+    private readonly RecipesRepository _repo;
+    public RecipesService(RecipesRepository repo)
     {
-      throw new NotImplementedException();
+      _repo = repo;
+    }
+    internal IEnumerable<Recipe> GetAll()
+    {
+      return _repo.GetAll();
     }
 
-    internal object GetById(int id)
+    internal Recipe GetById(int id)
     {
-      throw new NotImplementedException();
+      Recipe data = _repo.GetById(id);
+      if(data == null)
+      {
+        throw new SystemException("invalid id");
+      }
+      return data;
     }
 
-    internal object CreateRecipe(Recipe newRecipe)
+    internal Recipe CreateRecipe(Recipe newRecipe)
     {
-      throw new NotImplementedException();
+      return _repo.Create(newRecipe);
     }
 
-    internal object EditRecipe(Recipe updatedRecipe)
+    internal Recipe EditRecipe(Recipe updatedRecipe)
     {
-      throw new NotImplementedException();
+      Recipe data = GetById(updatedRecipe.Id);
+      updatedRecipe.Description = updatedRecipe.Description != null ? updatedRecipe.Description : data.Description;
+      updatedRecipe.Title = updatedRecipe.Title != null ? updatedRecipe.Title : data.Title;
+      updatedRecipe.PrepTime = updatedRecipe.PrepTime != 0 ? updatedRecipe.PrepTime : data.PrepTime;
+
+      return _repo.Edit(updatedRecipe);
     }
 
-    internal void DeleteRecipe(int id)
+    internal string DeleteRecipe(int id)
     {
-      throw new NotImplementedException();
+      Recipe data = GetById(id);
+      _repo.Delete(data);
+      return "Deleted";
     }
   }
 }
