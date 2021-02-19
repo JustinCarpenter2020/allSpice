@@ -1,11 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using allSpice.Models;
 
 namespace allSpice.Repositories
 {
   public class RecipesRepository
   {
+      private readonly IDbConnection _db;
+      public RecipesRepository(IDbConnection db)
+      {
+          _db = db;
+      }
+
     internal IEnumerable<Recipe> GetAll()
     {
       throw new NotImplementedException();
