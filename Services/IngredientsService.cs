@@ -1,34 +1,54 @@
 using System;
 using System.Collections.Generic;
 using allSpice.Models;
+using allSpice.Repositories;
 
 namespace allSpice.Services
 {
   public class IngredientsService
   {
+  private readonly IngredientsRepository _repo;
+  public IngredientsService(IngredientsRepository repo)
+  {
+    _repo = repo;
+  }
+
     internal object GetIngredientById(int id)
     {
-      throw new NotImplementedException();
+      var data = _repo.GetById(id);
+      if(data == null)
+      {
+        throw new SystemException("This id is invalid");
+      }
+      return data;
     }
 
     internal object CreateIngredient(Ingredient newIngredient)
     {
-      throw new NotImplementedException();
+      return _repo.Create(newIngredient);
     }
 
     internal object EditIngredient(Ingredient updatedIngredient)
     {
-      throw new NotImplementedException();
+      var data = GetIngredientById(updatedIngredient.Id);
+      updatedIngredient.Quantity = updatedIngredient.Quantity != null ? updatedIngredient.Quantity : data.Quanity;
+      updatedIngredient.Title = updatedIngredient.Title != null ? updatedIngredient.Title : data.Title;
+      updatedIngredient.Description = updatedIngredient.Description != null ? updatedIngredient.Description : data.Description;
+
+      return _repo.Edit(updatedIngredient);
     }
 
-    internal void DeleteIngredient(int id)
+    internal string DeleteIngredient(int id)
     {
-      throw new NotImplementedException();
+      GetIngredientById(id);
+      _repo.Delete(id);
+      return "Deleted";
     }
 
     internal IEnumerable<Recipe> GetIngredients(int id)
     {
-      throw new NotImplementedException();
+        IEnumerable<Recipe> data = _repo.GetByRecipeId(id);
+      return data;
     }
   }
 }
